@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SlideForge</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f2ff;--panel:#fff;--ink:#1d1b3a;--mute:#6b6894;--line:#e4e0fa;--brand:#5b4bff;--glow:rgba(91,75,255,.25)}
+[data-dark]{--bg:#0f0e1d;--panel:#181730;--ink:#ecebff;--mute:#9a97c4;--line:#2a2850;--brand:#8b7dff;--glow:rgba(139,125,255,.3)}
+*{box-sizing:border-box}body{margin:0;font-family:'Plus Jakarta Sans',Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);display:flex;height:100vh;overflow:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+aside{width:250px;background:var(--panel);border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:4px;transition:width .2s}
+aside.c{width:72px}aside.c .lbl{display:none}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#7c6cff,#4cc3ff);color:#fff;display:grid;place-items:center;flex:none}
+.ws{font-size:12px;color:var(--mute);display:flex;justify-content:space-between;align-items:center;margin:6px 0 14px}
+.badge{background:var(--line);padding:2px 8px;border-radius:99px;font-weight:700;color:var(--brand)}
+.nav{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;cursor:pointer;color:var(--mute);font-weight:600;border:0;background:none;text-align:left}
+.nav:hover,.nav.on{background:var(--bg);color:var(--ink)}.grow{flex:1}
+main{flex:1;overflow:auto;padding:32px 24px}
+.home{max-width:820px;margin:0 auto;text-align:center}.hero{width:150px;height:130px;margin-top:20px}
+h1{font-size:40px;margin:6px 0 24px;font-weight:800}h3{text-align:left;margin:34px 0 12px}
+.prompt{position:relative;background:var(--panel);border:2px solid var(--line);border-radius:24px;padding:16px 18px;text-align:left;transition:.2s;box-shadow:0 8px 30px rgba(60,40,160,.07)}
+.prompt:focus-within{border-color:var(--brand);box-shadow:0 0 0 6px var(--glow)}
+.prompt textarea{width:100%;min-height:84px;border:0;outline:0;background:none;resize:none;font-size:16px}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ib,select{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:7px 11px;cursor:pointer;font-size:14px}
+.ib:hover{border-color:var(--brand)}
+.send{width:42px;height:42px;border-radius:50%;border:0;background:var(--brand);color:#fff;font-size:16px;cursor:pointer}
+.send:hover{transform:scale(1.07)}
+.chip{display:inline-flex;gap:8px;background:var(--bg);border-radius:99px;padding:5px 12px;font-size:13px;margin-bottom:8px}.chip b{cursor:pointer}
+.pop{position:absolute;left:16px;top:100%;margin-top:8px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;z-index:5;width:300px;box-shadow:0 12px 34px rgba(0,0,0,.15);display:grid;gap:10px;font-size:14px}
+.pop label{display:grid;gap:4px;color:var(--mute);font-weight:600}.pop input,.pop select{width:100%;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.pills{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.pill{padding:9px 18px;border-radius:99px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-weight:600}
+.pill.on{background:var(--brand);color:#fff;border-color:var(--brand)}.pill:hover{transform:translateY(-2px)}
+.tpls{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.tpl{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:10px;cursor:pointer;text-align:left;transition:.2s}
+.tpl:hover,.tpl.on{border-color:var(--brand);transform:translateY(-3px)}
+.mini{position:relative;overflow:hidden;height:90px;border-radius:12px;padding:10px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.dc{position:absolute;display:block}u{text-decoration:none}.mini i{display:block;height:7px;border-radius:4px}.tpl b{display:block;margin:8px 4px 2px}
+.outline{max-width:900px;margin:0 auto}.bar{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.bar input{flex:1;font-size:20px;font-weight:800;border:0;background:none;outline:0}
+.primary{background:var(--brand);color:#fff;border:0;border-radius:12px;padding:11px 20px;font-weight:700;cursor:pointer}
+.ghost{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:9px 14px;cursor:pointer}
+.mute{color:var(--mute);font-size:14px}
+.card{display:grid;grid-template-columns:190px 1fr;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px;margin:14px 0}
+.thumb{aspect-ratio:16/9;border-radius:12px;padding:10px;font-size:11px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.thumb b{font-size:12px;line-height:1.2}.lay{font-size:10px;opacity:.8;text-transform:uppercase;letter-spacing:.05em}
+.card input,.card textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:8px;margin-bottom:6px}
+.card textarea{resize:vertical;min-height:80px}.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.sm{font-size:12px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--bg);cursor:pointer}.sm:hover{border-color:var(--brand)}
+.over{position:fixed;inset:0;background:rgba(10,8,30,.55);display:grid;place-items:center;z-index:20}
+.modal{background:var(--panel);border-radius:22px;padding:28px;width:min(420px,92vw)}
+.step{display:flex;gap:10px;align-items:center;padding:6px 0;color:var(--mute)}.step.on{color:var(--ink);font-weight:700}.step.done{color:#1f9d55}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--line)}.on .dot{background:var(--brand);animation:p 1s infinite}.done .dot{background:#1f9d55}
+@keyframes p{50%{transform:scale(1.6);opacity:.5}}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;z-index:30;display:none}
+@media(max-width:760px){aside{width:64px}.lbl{display:none}.card{grid-template-columns:1fr}h1{font-size:30px}}
+</style></head><body>
+<aside id="side"></aside><main id="main"></main><div id="ov"></div><div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const T=[ // id, name, description, primary, accent, light, style, dark?
+['auto','Auto','Colours picked from your topic','1F3A5F','F2A541','F5F7FA','bar',0],
+['ocean','Ocean','Clean and corporate','0B3C5D','D9B310','F4F8FB','bar',0],
+['sunset','Sunset','Warm and elegant','7A2E3A','F3A712','FFF8F0','side',0],
+['midnight','Midnight','Dark mode deck','14213D','FCA311','E5E5E5','dark',1],
+['forest','Forest','Calm green, header band','1B4332','F4A261','F1F8F4','band',0],
+['royal','Royal','Bold indigo and gold','2B2D6E','FFB703','F5F5FF','corner',0],
+['coral','Coral','Friendly and energetic','8C2F39','FFD166','FFF5F5','corner',0],
+['lavender','Lavender','Soft and creative','4A3F8F','F6BD60','F7F3FF','side',0],
+['slate','Slate','Modern and technical','263238','26C6DA','F4F7F8','band',0],
+['mint','Mint','Fresh and clear','0F4C5C','E9C46A','F1FAF7','bar',0],
+['crimson','Crimson','Dark and dramatic','6A040F','FFBA08','FFF6F0','dark',1],
+['noir','Noir','Black and gold luxury','111111','D4AF37','F5F5F5','dark',1],
+['sky','Sky','Bright and open','0077B6','FFB703','F0F9FF','band',0],
+['rose','Rose','Elegant and stylish','7B2D5B','FFD6A5','FFF5FA','corner',0],
+['sand','Sand','Warm and earthy','5C4033','E0A458','FBF6EE','side',0],
+['teal','Teal','Professional and calm','004E64','FFB30F','EAF6F9','bar',0],
+['plum','Plum','Rich dark purple','3C1642','F7B801','F8F1FB','dark',1],
+['meadow','Meadow','Natural and light','386641','F2CC8F','F4F9EC','corner',0],
+['steel','Steel','Sharp business blue','1F2A44','F2A65A','F3F6FB','band',0],
+['wine','Wine','Classic and formal','590D22','FFB3C1','FFF0F3','side',0],
+['aqua','Aqua Night','Dark with cool accents','0B132B','5BC0BE','E8F1F2','dark',1]];
+const THEMES=T.map(([id,name,d,p,a,l,st,dk])=>({id,name,d,st,dk,c:['#'+p,'#'+a,'#'+(dk?p:l)]}));
+const S={view:'home',theme:'auto',tone:'professional',lang:'English',n:10,model:'pro',images:true,prompt:'',file:null,tpl:null,plan:null,collapsed:false,pop:false};
+let dark=localStorage.getItem('sf_dark')==='1';document.documentElement.toggleAttribute('data-dark',dark);
+const projects=()=>{try{return JSON.parse(localStorage.getItem('sf_projects')||'[]')}catch(e){return[]}};
+function saveProject(){if(!S.plan)return;const l=projects().filter(p=>p.id!==S.plan._id);l.unshift({id:S.plan._id,title:S.plan.title,plan:S.plan,at:Date.now()});try{localStorage.setItem('sf_projects',JSON.stringify(l.slice(0,20)))}catch(e){}}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2600)}
+function pal(){if(S.theme==='auto'&&S.plan&&S.plan.palette){const p=S.plan.palette;return['#'+p.primary,'#'+p.accent,'#'+p.light]}return(THEMES.find(t=>t.id===S.theme)||THEMES[0]).c}
+function go(v){S.view=v;render()}
+const NAV=[['home','✨','Create'],['recent','🕘','Recent Projects'],['templates','🎨','Templates'],['media','🖼️','Media'],['settings','⚙️','Settings'],['trash','🗑️','Trash']];
+function render(){
+  $('#side').className=S.collapsed?'c':'';
+  $('#side').innerHTML=`<div class="brand"><div class="logo">▦</div><span class="lbl">SlideForge</span><span class="grow"></span><button class="nav" style="padding:4px 8px" onclick="S.collapsed=!S.collapsed;render()">☰</button></div>
+  <div class="ws"><span class="lbl">My Workspace</span><span class="badge lbl">Free</span></div>
+  ${NAV.map(n=>`<button class="nav ${S.view===n[0]||(n[0]==='home'&&S.view==='outline')?'on':''}" onclick="go('${n[0]}')">${n[1]}<span class="lbl">${n[2]}</span></button>`).join('')}`;
+  const v={home,outline,recent,templates,settings,media:mediaView,trash:trashView}[S.view];$('#main').innerHTML=v();bind();
+}
+const tplCard=t=>{const fg=t.dk?'#fff':t.c[0];
+  const deco=t.st==='band'?`<u class="dc" style="left:0;top:0;right:0;height:20px;background:${t.c[0]}"></u>`:t.st==='side'?`<u class="dc" style="left:0;top:0;bottom:0;width:9px;background:${t.c[0]}"></u>`:t.st==='corner'?`<u class="dc" style="right:-14px;top:-14px;width:46px;height:46px;border-radius:50%;background:${t.c[1]}"></u>`:'';
+  return`<div class="tpl ${S.theme===t.id&&!S.tpl?'on':''}" onclick="S.theme='${t.id}';toast(S.tpl?'Your uploaded template is being used. Remove it (x) to use this design.':'${t.name} design selected');render()"><div class="mini" style="background:${t.c[2]}">${deco}<i style="width:60%;background:${fg}"></i><i style="width:40%;background:${t.c[1]}"></i><i style="width:75%;background:${fg};opacity:.35"></i></div><b>${t.name}</b><span class="mute">${t.d}</span></div>`};
+function home(){return`<div class="home">
+<svg class="hero" viewBox="0 0 150 130"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8f80ff"/><stop offset="1" stop-color="#4cc3ff"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd27a"/><stop offset="1" stop-color="#ff8fb1"/></linearGradient></defs>
+<ellipse cx="75" cy="118" rx="48" ry="7" fill="#000" opacity=".12"/><rect x="38" y="52" width="80" height="52" rx="10" fill="#c9c2ff" transform="rotate(-8 78 78)"/><rect x="30" y="38" width="84" height="56" rx="11" fill="url(#g1)"/><rect x="42" y="52" width="40" height="7" rx="3.5" fill="#fff" opacity=".9"/><rect x="42" y="65" width="56" height="5" rx="2.5" fill="#fff" opacity=".6"/><rect x="42" y="75" width="30" height="5" rx="2.5" fill="#fff" opacity=".6"/><circle cx="112" cy="36" r="16" fill="url(#g2)"/><path d="M112 27l2.6 6.4 6.4.6-4.9 4.3 1.5 6.7-5.6-3.5-5.6 3.5 1.5-6.7-4.9-4.3 6.4-.6z" fill="#fff"/></svg>
+<h1>Ready for action</h1>
+<div class="prompt">${S.file?`<div class="chip">📄 ${esc(S.file.name)} <b onclick="S.file=null;render()">×</b></div>`:''}
+${S.tpl?`<div class="chip">🎨 Using your template: ${esc(S.tpl.name)} <b onclick="S.tpl=null;render()">×</b></div>`:''}
+<textarea id="prompt" placeholder="Describe your presentation or upload a paper...">${esc(S.prompt)}</textarea>
+<div class="tools"><button class="ib" id="plusBtn" title="Upload a paper, template and options">＋</button><input type="file" id="paperIn" hidden accept=".pdf,.docx,.txt,.md"><button class="ib" onclick="S.images=!S.images;render()" title="Image style">🖼️ ${S.images?'Stock photos':'No images'}</button>
+<select id="modelSel"><option value="lite" ${S.model==='lite'?'selected':''}>Lite</option><option value="pro" ${S.model==='pro'?'selected':''}>Pro</option></select>
+<span class="grow"></span><button class="ib" id="micBtn" title="Voice">🎤</button><button class="send" id="sendBtn" title="Create outline">➤</button></div>
+<div class="pop" id="pop" ${S.pop?'':'hidden'}><button class="ghost" onclick="$('#paperIn').click()">📄 Upload a paper (PDF, DOCX, TXT)</button><label>Number of slides<input type="number" id="nIn" min="3" max="20" value="${S.n}"></label>
+<label>Tone<select id="toneIn">${['professional','casual','academic','persuasive','inspiring'].map(t=>`<option ${S.tone===t?'selected':''}>${t}</option>`).join('')}</select></label>
+<label>Language<select id="langIn">${['English','Hindi','Telugu','Tamil','Spanish','French','German'].map(t=>`<option ${S.lang===t?'selected':''}>${t}</option>`).join('')}</select></label>
+<label>Your own template (.pptx / .potx)<input type="file" id="tplIn" accept=".pptx,.potx"></label>${S.tpl?`<span class="chip">🎨 ${esc(S.tpl.name)} <b onclick="S.tpl=null;render()">×</b></span>`:''}</div></div>
+<div class="pills"><button class="pill on">Presentation</button><button class="pill" onclick="toast('Documents are coming soon')">Document</button><button class="pill" onclick="$('#paperIn').click()">Import</button><button class="pill" onclick="toast('Beautify is coming soon')">Beautify</button></div>
+<h3>Suggested templates <button class="sm" onclick="go('templates')">See all ${THEMES.length} designs →</button></h3><div class="tpls">${THEMES.slice(0,8).map(tplCard).join('')}</div></div>`}
+function slideCard(s,i){const c=pal(),lay=s.layout||'bullets',dkT=!!(THEMES.find(t=>t.id===S.theme)||{}).dk;return`<div class="card"><div><div class="thumb" style="background:${dkT?c[0]:c[2]};color:${dkT?'#fff':c[0]};border:1px solid ${c[1]}"><span class="lay">${i+1} · ${esc(lay)}</span><b>${esc(s.title)}</b><i style="height:4px;width:30%;background:${c[1]}"></i></div></div>
+<div><input data-i="${i}" data-f="title" value="${esc(s.title)}" style="font-weight:700">
+<textarea data-i="${i}" data-f="bullets" placeholder="One bullet per line (max 5)">${esc((s.bullets||[]).join('\n'))}</textarea>
+<input data-i="${i}" data-f="notes" placeholder="Speaker notes" value="${esc(s.notes||'')}">
+<div class="row"><span class="mute">Photo:</span><select data-i="${i}" data-f="photo"><option value="auto">Auto (stock)</option><option value="none" ${s.photo==='none'?'selected':''}>No photo</option>${media().map(m=>`<option value="${m.id}" ${s.photo===m.id?'selected':''}>${esc(m.name.slice(0,24))}</option>`).join('')}</select></div>
+<div class="row"><span class="mute">Rewrite with AI:</span>${['shorter','expand','formal','casual'].map(m=>`<button class="sm" onclick="rewrite(${i},'${m}')">${m}</button>`).join('')}<span class="grow"></span>
+<button class="sm" onclick="mv(${i},-1)">↑</button><button class="sm" onclick="mv(${i},1)">↓</button><button class="sm" onclick="del(${i})">Delete</button></div></div></div>`}
+function outline(){const p=S.plan;return`<div class="outline"><div class="bar"><button class="ghost" onclick="go('home')">← Back</button><input id="ptitle" value="${esc(p.title)}"><button class="primary" onclick="build()">Build PowerPoint</button></div>
+<p class="mute">Edit anything, then build. Design: <b>${S.tpl?esc(S.tpl.name)+' (your template)':S.theme}</b> · ${p.slides.length} slides${p.slides.some(s=>s.diagram)?' · includes a diagram':''}</p>
+${p.slides.map(slideCard).join('')}<button class="ghost" onclick="addSlide()">+ Add slide</button></div>`}
+function recent(){const l=projects();return`<div class="outline"><h1 style="font-size:28px">Recent projects</h1>${l.length?l.map(p=>`<div class="card" style="grid-template-columns:1fr auto"><div><b>${esc(p.title)}</b><div class="mute">${p.plan.slides.length} slides · ${new Date(p.at).toLocaleString()}</div></div><div class="row"><button class="ghost" onclick="openP('${p.id}')">Open</button><button class="ghost" onclick="delP('${p.id}')">Delete</button></div></div>`).join(''):'<p class="mute">Nothing yet. Create your first presentation.</p>'}</div>`}
+function templates(){return`<div class="outline"><h1 style="font-size:28px">Templates</h1><p class="mute">Pick a built-in design, or upload your own .pptx on the Create page (settings icon) to use it exactly.</p><div class="tpls">${THEMES.map(tplCard).join('')}</div></div>`}
+function settings(){return`<div class="outline"><h1 style="font-size:28px">Settings</h1><div class="card" style="grid-template-columns:1fr auto"><div><b>Dark mode</b><div class="mute">Switch the interface theme</div></div><button class="ghost" onclick="dark=!dark;localStorage.setItem('sf_dark',dark?1:0);document.documentElement.toggleAttribute('data-dark',dark);render()">${dark?'On':'Off'}</button></div>
+<div class="card" style="grid-template-columns:1fr"><div><b>API keys</b><div class="mute">Set GEMINI_API_KEY or ANTHROPIC_API_KEY (AI) and PIXABAY_API_KEY or PEXELS_API_KEY (images) in the terminal before starting the server.</div></div></div></div>`}
+function bind(){
+  const p=$('#prompt');if(p){p.oninput=()=>S.prompt=p.value;p.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();makeOutline()}}}
+  const f=(id,fn)=>{const e=$('#'+id);if(e)e.onchange=fn};
+  f('paperIn',e=>{S.file=e.target.files[0]||null;S.pop=false;render()});f('tplIn',e=>{S.tpl=e.target.files[0]||null;S.pop=true;render()});
+  f('modelSel',e=>S.model=e.target.value);f('nIn',e=>S.n=+e.target.value||8);f('toneIn',e=>S.tone=e.target.value);f('langIn',e=>S.lang=e.target.value);
+  const sb=$('#sendBtn');if(sb)sb.onclick=makeOutline;const st=$('#plusBtn');if(st)st.onclick=()=>{S.pop=!S.pop;$('#pop').hidden=!S.pop};
+  f('mediaIn',e=>addMedia(e.target.files));
+  const mb=$('#micBtn');if(mb)mb.onclick=mic;const t=$('#ptitle');if(t)t.oninput=()=>S.plan.title=t.value;
+}
+$('#main').addEventListener('input',e=>{const t=e.target,i=t.dataset.i;if(i===undefined)return;const s=S.plan.slides[+i];
+  s[t.dataset.f]=t.dataset.f==='bullets'?t.value.split('\n').map(x=>x.trim()).filter(Boolean):t.value});
+document.addEventListener('click',e=>{if(S.pop&&!e.target.closest('.prompt')){S.pop=false;const p=$('#pop');if(p)p.hidden=true}});
+function mic(){const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return toast('Voice input is not supported in this browser');
+  const r=new R();r.lang='en-IN';r.onresult=e=>{S.prompt=(S.prompt?S.prompt+' ':'')+e.results[0][0].transcript;$('#prompt').value=S.prompt};r.start();toast('Listening…')}
+const STEPS=['Analyzing','Writing slides','Adding images','Building diagrams','Finalizing'];
+function progress(from,to,ms){let i=from;const draw=()=>$('#ov').innerHTML=`<div class="over"><div class="modal"><h3 style="margin:0 0 10px">Working on it…</h3>${STEPS.map((s,k)=>`<div class="step ${k<i?'done':k===i?'on':''}"><span class="dot"></span>${s}</div>`).join('')}</div></div>`;
+  draw();const t=setInterval(()=>{if(i<to){i++;draw()}},ms);return()=>{clearInterval(t);$('#ov').innerHTML=''}}
+async function call(url,opt){const r=await fetch(url,opt);if(!r.ok){let m='Something went wrong';try{m=(await r.json()).detail||m}catch(e){}throw new Error(m)}return r}
+async function makeOutline(){
+  if(!S.prompt.trim()&&!S.file)return toast('Type a topic or upload a paper first');
+  const fd=new FormData();if(S.file)fd.append('paper',S.file);fd.append('topic',S.prompt);fd.append('slides',S.n);fd.append('tone',S.tone);fd.append('language',S.lang);fd.append('model',S.model);
+  const stop=progress(0,1,5000);
+  try{const r=await call('/api/outline',{method:'POST',body:fd});S.plan=await r.json();S.plan._id='p'+Date.now();saveProject();S.view='outline';stop();render()}
+  catch(e){stop();toast(e.message)}}
+async function build(){
+  const out=JSON.parse(JSON.stringify(S.plan));out.slides.forEach(s=>{if(s.photo&&s.photo[0]==='m'){const m=media().find(x=>x.id===s.photo);if(m)s.user_image=m.data}});
+  const fd=new FormData();fd.append('plan',JSON.stringify(out));fd.append('theme',S.theme);fd.append('use_images',S.images);if(S.tpl)fd.append('template',S.tpl);
+  const stop=progress(2,4,7000);saveProject();
+  try{const r=await call('/api/build',{method:'POST',body:fd});const url=URL.createObjectURL(await r.blob()),off=r.headers.get('X-Mode')==='offline',tm=r.headers.get('X-Template');stop();
+    $('#ov').innerHTML=`<div class="over" onclick="if(event.target===this)this.remove()"><div class="modal"><h3 style="margin:0 0 8px">Your presentation is ready 🎉</h3>${S.tpl?'<p class="mute">'+(tm==='none'?'⚠ Your template could not be applied.':'✅ Built on your template: '+esc(S.tpl.name))+'</p>':''}${off?'<p class="mute">No AI key was set, so this is the basic offline version.</p>':''}${S.images&&r.headers.get('X-Images')==='0'?'<p class="mute">No pictures could be added (check your internet connection, or set a PIXABAY_API_KEY).</p>':''}<div class="row"><a class="primary" style="text-decoration:none" href="${url}" download="${esc(S.plan.title.slice(0,40))}.pptx">Download .pptx</a><button class="ghost" onclick="$('#ov').innerHTML=''">Keep editing</button></div></div></div>`}
+  catch(e){stop();toast(e.message)}}
+async function rewrite(i,mode){const s=S.plan.slides[i];toast('Rewriting…');
+  try{const r=await call('/api/rewrite',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:s.title,bullets:s.bullets||[],mode})});s.bullets=(await r.json()).bullets;render()}catch(e){toast(e.message)}}
+const mv=(i,d)=>{const a=S.plan.slides,j=i+d;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];render()};
+const del=i=>{S.plan.slides.splice(i,1);render()};
+const addSlide=()=>{S.plan.slides.push({title:'New slide',bullets:['Add your point here'],notes:'',layout:'bullets'});render()};
+const openP=id=>{const p=projects().find(x=>x.id===id);if(p){S.plan=p.plan;go('outline')}};
+const trash=()=>{try{return JSON.parse(localStorage.getItem('sf_trash')||'[]')}catch(e){return[]}};
+const setT=l=>{try{localStorage.setItem('sf_trash',JSON.stringify(l))}catch(e){}};
+const delP=id=>{const p=projects().find(x=>x.id===id);if(p){setT([p,...trash()]);localStorage.setItem('sf_projects',JSON.stringify(projects().filter(x=>x.id!==id)))}render();toast('Moved to Trash')};
+const restoreP=id=>{const p=trash().find(x=>x.id===id);if(p){localStorage.setItem('sf_projects',JSON.stringify([p,...projects()]));setT(trash().filter(x=>x.id!==id))}render()};
+const purgeP=id=>{setT(trash().filter(x=>x.id!==id));render()};
+function trashView(){const l=trash();return`<div class="outline"><h1 style="font-size:28px">Trash</h1><p class="mute">Projects you delete from Recent Projects stay here until you delete them forever.</p>${l.length?l.map(p=>`<div class="card" style="grid-template-columns:1fr auto"><div><b>${esc(p.title)}</b><div class="mute">${p.plan.slides.length} slides</div></div><div class="row"><button class="ghost" onclick="restoreP('${p.id}')">Restore</button><button class="ghost" onclick="purgeP('${p.id}')">Delete forever</button></div></div>`).join(''):'<p class="mute">Trash is empty.</p>'}</div>`}
+const media=()=>{try{return JSON.parse(localStorage.getItem('sf_media')||'[]')}catch(e){return[]}};
+function addMedia(files){[...files].forEach(f=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),k=Math.min(1,1000/Math.max(im.width,im.height));c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+  const l=media();l.push({id:'m'+Date.now()+Math.random().toString(36).slice(2,6),name:f.name,data:c.toDataURL('image/jpeg',.75)});
+  try{localStorage.setItem('sf_media',JSON.stringify(l));render()}catch(e){toast('Browser storage is full. Delete some images.')}};im.src=URL.createObjectURL(f)})}
+const delMedia=id=>{localStorage.setItem('sf_media',JSON.stringify(media().filter(m=>m.id!==id)));render()};
+const CATS=['technology','science laboratory','nature landscape','medicine hospital','agriculture farm','space astronomy','education classroom','business office','city architecture','solar wind energy'];
+const BI=[['technology','Technology'],['science','Science'],['nature','Nature'],['medicine','Medicine'],['agriculture','Agriculture'],['space','Space'],['education','Education'],['business','Business'],['city','City'],['energy','Energy']];
+Object.assign(S,{mtab:'bi',bcat:'technology',cat:CATS[0],lib:{}});
+function addLib(cat,n){const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=im.width;c.height=im.height;c.getContext('2d').drawImage(im,0,0);
+  const l=media();l.push({id:'m'+Date.now()+Math.random().toString(36).slice(2,6),name:cat+' '+n,data:c.toDataURL('image/jpeg',.75)});
+  try{localStorage.setItem('sf_media',JSON.stringify(l));toast('Added to My images ('+l.length+')')}catch(e){toast('Browser storage is full. Delete some images.')}};im.src='/library/'+cat+'/'+n+'.jpg'}
+function biView(){const c=S.bcat;return`<p class="mute">100 built-in illustrations in 10 categories. They work offline and are free to use. Click Add to save one to My images.</p>
+<div class="row">${BI.map(b=>`<button class="sm" style="${b[0]===c?'background:var(--brand);color:#fff':''}" onclick="S.bcat='${b[0]}';render()">${b[1]}</button>`).join('')}<span class="grow"></span><button class="ghost" onclick="for(let n=1;n<=10;n++)addLib('${c}',n)">Add all 10</button></div>
+<div class="tpls" style="margin-top:16px">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="tpl" style="cursor:default"><img src="/library/${c}/${n}.jpg" loading="lazy" style="width:100%;height:100px;object-fit:cover;border-radius:10px" onerror="this.outerHTML='<div class=&quot;mute&quot; style=&quot;height:100px;font-size:12px&quot;>Image not loading. Restart the server with the new app.py</div>'"><b style="font-size:12px">${c} ${n}</b><button class="sm" onclick="addLib('${c}',${n})">＋ Add</button></div>`).join('')}</div>`}
+async function loadCat(c){if(S.lib[c]&&S.lib[c]!=='loading')return render();S.lib[c]='loading';render();
+  try{S.lib[c]=(await(await call('/api/stock?n=10&q='+encodeURIComponent(c))).json()).images}catch(e){S.lib[c]=[];toast(e.message)}render()}
+async function addStock(i){const m=(S.lib[S.cat]||[])[i];if(!m)return;toast('Adding…');
+  try{const d=(await(await call('/api/stock/image?url='+encodeURIComponent(m.full))).json()).data;const l=media();
+    l.push({id:'m'+Date.now()+Math.random().toString(36).slice(2,6),name:(m.title||S.cat).slice(0,40),data:d});
+    localStorage.setItem('sf_media',JSON.stringify(l));toast('Added to My images ('+l.length+')')}catch(e){toast(e.message)}}
+function mediaView(){const l=media(),mine=S.mtab==='mine',lib=S.lib[S.cat];
+return`<div class="outline"><h1 style="font-size:28px">Media</h1>
+<div class="row" style="margin-bottom:12px"><button class="pill ${mine?'on':''}" onclick="S.mtab='mine';render()">My images (${l.length})</button><button class="pill ${S.mtab==='bi'?'on':''}" onclick="S.mtab='bi';render()">Built-in images (100)</button><button class="pill ${S.mtab==='lib'?'on':''}" onclick="S.mtab='lib';loadCat(S.cat)">Free photos (live)</button></div>
+${S.mtab==='bi'?biView():mine?`<p class="mute">Upload your own pictures, or add some from the Built-in images. In the outline editor, pick them in the Photo menu of any slide.</p>
+<label class="primary" style="display:inline-block;cursor:pointer">＋ Upload images<input type="file" id="mediaIn" accept="image/*" multiple hidden></label>
+<div class="tpls" style="margin-top:16px">${l.map(m=>`<div class="tpl" style="cursor:default"><img src="${m.data}" style="width:100%;height:100px;object-fit:cover;border-radius:10px"><b style="font-size:12px;overflow:hidden;white-space:nowrap">${esc(m.name)}</b><button class="sm" onclick="delMedia('${m.id}')">Delete</button></div>`).join('')||'<p class="mute">No images yet.</p>'}</div>`
+:`<p class="mute">100 free photos in 10 categories (10 each). Click Add to save one to My images. Photos come from Wikimedia Commons or Pixabay, so credit them in your report.</p>
+<div class="row">${CATS.map(c=>`<button class="sm" style="${c===S.cat?'background:var(--brand);color:#fff':''}" onclick="S.cat='${c}';loadCat('${c}')">${c}</button>`).join('')}</div>
+<div class="tpls" style="margin-top:16px">${lib==='loading'?'<p class="mute">Loading photos…</p>':(lib||[]).map((m,i)=>`<div class="tpl" style="cursor:default"><img src="${esc(m.thumb)}" loading="lazy" style="width:100%;height:100px;object-fit:cover;border-radius:10px"><b style="font-size:12px;overflow:hidden;white-space:nowrap">${esc(m.title)}</b><button class="sm" onclick="addStock(${i})">＋ Add</button></div>`).join('')||'<p class="mute">No photos found. Your network may be blocking the photo sites. Use the Built-in images tab instead.</p>'}</div>`}</div>`}
+render();
+</script></body></html>
